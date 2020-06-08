@@ -1,0 +1,16 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Login</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <link rel="stylesheet" href="/jentretien.css">
+    </head>
+    <body>
+        <h1>Login successful !</h1>
+        Here is your access token: 
+        <p id="access_token"></p>
+    <script>
+        document.getElementById("access_token").innerText = new URLSearchParams(window.location.hash.substr(1)).get('access_token');
+    </script>
+    </body>
+</html>
