@@ -1,22 +1,30 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title>Login</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <link rel="stylesheet" href="/jentretien.css">
-</head>
-<body>
-    <h1>Who are you ?</h1>
-    <form action="/login" method="post">
-        <label for="login">My login </label>
-        <input id="login" name="login" type="text">
-        <label for="password">My secret name: </label>
-        <input id="password" name="password" type="password">
-        <input type="checkbox" name="iamme" id="iammeid" checked>
-        <label for="iammeid">I am me.</label>
-        <input type="checkbox" name="iamme2" id="iammeid2" checked>
-        <label for="iammeid2">I am really me.</label>
-        <input type="submit">
-    </form>
-</body>
+    <head>
+        <title>Login</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="/normalize.css">
+        <link rel="stylesheet" href="/milligram.css">
+    </head>
+    <body>
+        <main class="container">
+            <form action="/login" method="post">
+                <fieldset>
+                    <legend>Who are you ?</legend>
+                    <label for="login">My nickname </label>
+                    <input id="login" name="login" type="text">
+                    <label for="password">My secret real name: </label>
+                    <input id="password" name="password" type="password">
+                    <label for="iammeid">
+                        <input type="checkbox" name="iamme" id="iammeid" checked> I am me.
+                    </label>
+                    <label for="iammeid2">
+                        <input type="checkbox" name="iamme2" id="iammeid2" checked> I am really me.
+                    </label>
+                    <input class="button-primary" type="submit">
+                </fieldset>
+            </form>
+        </main>
+    </body>
 </html>

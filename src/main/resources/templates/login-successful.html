@@ -3,14 +3,18 @@
     <head>
         <title>Login</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <link rel="stylesheet" href="/jentretien.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="/normalize.css">
+        <link rel="stylesheet" href="/milligram.css">
     </head>
     <body>
-        <h1>Login successful !</h1>
-        Here is your access token: 
-        <p id="access_token"></p>
-    <script>
-        document.getElementById("access_token").innerText = new URLSearchParams(window.location.hash.substr(1)).get('access_token');
-    </script>
+        <main class="container">
+            <h1>Login successful !</h1>
+            Here is your access token: 
+            <p id="access_token"></p>
+        </main>
+        <script>
+            document.getElementById("access_token").innerText = new URLSearchParams(window.location.hash.substr(1)).get('access_token');
+        </script>
     </body>
 </html>
