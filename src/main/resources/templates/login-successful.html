@@ -11,7 +11,7 @@
         <main class="container">
             <h1>Login successful !</h1>
             Here is your access token: 
-            <p id="access_token"></p>
+            <pre><code id="access_token"></code></pre>
         </main>
         <script>
             document.getElementById("access_token").innerText = new URLSearchParams(window.location.hash.substr(1)).get('access_token');
