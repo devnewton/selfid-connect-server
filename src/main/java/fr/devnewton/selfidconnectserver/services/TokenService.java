@@ -24,8 +24,12 @@ public class TokenService {
         this.jwk = RsaJwkGenerator.generateJwk(2048);
         this.jwk.setKeyId("selfid");
     }
-
+    
     public boolean validate(String token) {
+        return null != decode(token);
+    }
+
+    public JwtClaims decode(String token) {
         JwtConsumer jwtConsumer = new JwtConsumerBuilder()
                 .setRequireExpirationTime() // the JWT must have an expiration time
                 .setAllowedClockSkewInSeconds(30) // allow some leeway in validating time based claims to account for clock skew
@@ -39,11 +43,10 @@ public class TokenService {
 
         try {
             //  Validate the JWT and process it to the Claims
-            jwtConsumer.processToClaims(token);
-            return true;
+            return jwtConsumer.processToClaims(token);
         } catch (InvalidJwtException e) {
             System.out.println(e);
-            return false;
+            return null;
         }
     }
 

@@ -4,6 +4,7 @@ import fr.devnewton.selfidconnectserver.services.TokenService;
 import org.jose4j.jwk.JsonWebKey;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,15 +19,24 @@ public class TokenController {
     private TokenService service;
 
     @GetMapping("/.well-known/jwks.json")
-    @ResponseBody
-    public String wellKnowJWKS() {
-        return service.getJwk().toJson(JsonWebKey.OutputControlLevel.PUBLIC_ONLY);
+    public ResponseEntity<String> wellKnowJWKS() {
+        return ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON).body(service.getJwk().toJson(JsonWebKey.OutputControlLevel.PUBLIC_ONLY));
     }
 
     @PostMapping("/token/validate")
     public ResponseEntity<String> validate(@RequestParam(name = "token", required = true) String token) {
         if (service.validate(token)) {
-            return ResponseEntity.ok().body("Token is invalid");
+            return ResponseEntity.ok().body("Token is valid");
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token is invalid");
+        }
+    }
+
+    @PostMapping("/token/decode")
+    public ResponseEntity<String> decode(@RequestParam(name = "token", required = true) String token) {
+        var claims = service.decode(token);
+        if (null != claims) {
+            return ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON).body(claims.toJson());
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token is invalid");
         }
@@ -36,7 +46,7 @@ public class TokenController {
     public ResponseEntity<String> generate() {
         String token = service.generate();
         if (null != token) {
-            return ResponseEntity.ok().body(token);
+            return ResponseEntity.ok().contentType(MediaType.TEXT_PLAIN).body(token);
         } else {
             return ResponseEntity.badRequest().body("Cannot generate token");
         }
